@@ -18,36 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = createTabs()
+        window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()
     }
     
-    func createHomeVC() -> UINavigationController{
-        let homeVC = HomeVC()
-        homeVC.title = "ALL Stocks"
-        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag:0)
-        return UINavigationController(rootViewController: homeVC)
-    }
-    
-    func createGainersVC() -> UINavigationController{
-        let gainersVC = GainsVC()
-        gainersVC.title = "TOP GAINERS Stocks"
-        gainersVC.tabBarItem = UITabBarItem(title: "Gainers", image: UIImage(systemName: "arrow.up.forward.circle"), tag:1)
-        return UINavigationController(rootViewController: gainersVC)
-    }
-    func createLossersVC() -> UINavigationController{
-        let lossersVC = LossersVC()
-        lossersVC.title = "TOP LOSSERS Stocks"
-        lossersVC.tabBarItem = UITabBarItem(title: "Lossers", image: UIImage(systemName: "arrow.down.forward.circle"), tag: 2)
-        return UINavigationController(rootViewController: lossersVC)
-    }    
-    
-    func createTabs() -> UITabBarController {
-        let tabbar = UITabBarController()
-        tabbar.viewControllers = [createHomeVC(),createGainersVC(),createLossersVC()]
-        
-        return tabbar
-    }
+
     
     
     func sceneDidDisconnect(_ scene: UIScene) {
