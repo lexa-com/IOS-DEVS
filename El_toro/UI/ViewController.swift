@@ -15,18 +15,18 @@ class ViewController: UIViewController,StoinksSelectionDelegate {
     
     let selectButton = UIButton()
     let pageLabel = UILabel()
-    let tableItem = UIView()
-    let scrollView = UIScrollView()
-    var stocksLabel = UILabel()
-    var stocksPrice = UILabel()
-    var stocksGrowth = UILabel()
+    let tableView = UITableView()
+    var stocks:[stock] = []
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setUpUi ()
-        configureTable()
-        setUpScrollView()
+        setTable()
+        stocks = getStocks()
+       
+       
     }
     func selectedStoinks(label: String) {
         pageLabel.text = label    }
@@ -80,59 +80,68 @@ class ViewController: UIViewController,StoinksSelectionDelegate {
         
     }
     
-    func setUpScrollView (){
-        view.addSubview(scrollView)
-        scrollView.addSubview(tableItem)
+    func setTable (){
+        view.addSubview(tableView)
+        setTableDelegates()
+        tableView.rowHeight = 60
+        tableView.register(StocksCell.self, forCellReuseIdentifier: "stocksCell")
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            tableView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor, constant: 12),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
         ])
         
-        
-       
         
         
     }
     
-    func configureTable() {
-        view.addSubview(stocksLabel)
-        view.addSubview(stocksPrice)
-        view.addSubview(stocksGrowth)
-        
-        stocksLabel.translatesAutoresizingMaskIntoConstraints = false
-        stocksPrice.translatesAutoresizingMaskIntoConstraints = false
-        stocksGrowth.translatesAutoresizingMaskIntoConstraints = false
-        
-        stocksLabel.text = "AAFL"
-        stocksLabel.textColor = .black
-        stocksLabel.textAlignment = .justified
-        
-        stocksPrice.text = "$20.24"
-        stocksPrice.textColor = .systemPink
-        
-        stocksGrowth.text = "2.2%"
-        stocksGrowth.textColor = .systemGreen
-        
-        NSLayoutConstraint.activate([
-            stocksLabel.leadingAnchor.constraint(equalTo:view.leadingAnchor, constant: 20),
-            stocksLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stocksLabel.heightAnchor.constraint(equalToConstant: 60),
-           // stocksLabel.widthAnchor.constraint(equalToConstant: 40),
-            
-            stocksPrice.trailingAnchor.constraint(equalTo:view.trailingAnchor, constant: -80),
-            stocksPrice.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stocksPrice.heightAnchor.constraint(equalToConstant: 60),
-            //stocksPrice.widthAnchor.constraint(equalToConstant: 40),
-        
-            stocksGrowth.trailingAnchor.constraint(equalTo:view.trailingAnchor, constant: -20),
-            stocksGrowth.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stocksGrowth.heightAnchor.constraint(equalToConstant: 60),
-            //stocksGrowth.widthAnchor.constraint(equalToConstant: 40),  
-        ])
+    func setTableDelegates(){
+        tableView.delegate = self
+        tableView.dataSource = self
     }
+    
+
+   
+}
+extension ViewController: UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return stocks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stocksCell") as! StocksCell
+        let stock = stocks[indexPath.row]
+        cell.set(stock: stock)
+        
+        return cell
+    }
+    
+    
 }
 
+// test data
 
+extension ViewController {
+    func getStocks() -> [stock]{
+        let stock1 = stock(T: "TANH", o: "24.5")
+        let stock2 = stock(T: "VSAT", o: "34.9")
+        let stock3 = stock(T: "VSdd", o: "30.9")
+        let stock4 = stock(T: "VSvs", o: "44.9")
+        let stock5 = stock(T: "AAPL", o: "654.9")
+        let stock6 = stock(T: "TANH", o: "24.5")
+        let stock7 = stock(T: "VSAT", o: "34.9")
+        let stock8 = stock(T: "VSdd", o: "30.9")
+        let stock9 = stock(T: "VSvs", o: "44.9")
+        let stock10 = stock(T: "AAPL", o: "654.9")
+        
+        return [stock1,stock2,stock3,stock4,stock5,stock6,stock7,stock8,stock9,stock10]
+        
+    }
+}
 
 
