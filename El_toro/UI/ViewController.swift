@@ -6,17 +6,17 @@
 //
 
 import UIKit
+import RxSwift
+
 
 class ViewController: UIViewController,StoinksSelectionDelegate {
  
-    
-   
     
     
     let selectButton = UIButton()
     let pageLabel = UILabel()
     let tableView = UITableView()
-    var stocks:[stock] = []
+    var stocks:[stockDetails] = []
    
 
     override func viewDidLoad() {
@@ -127,19 +127,19 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
 // test data
 
 extension ViewController {
-    func getStocks() -> [stock]{
-        let stock1 = stock(T: "TANH", o: "24.5")
-        let stock2 = stock(T: "VSAT", o: "34.9")
-        let stock3 = stock(T: "VSdd", o: "30.9")
-        let stock4 = stock(T: "VSvs", o: "44.9")
-        let stock5 = stock(T: "AAPL", o: "654.9")
-        let stock6 = stock(T: "TANH", o: "24.5")
-        let stock7 = stock(T: "VSAT", o: "34.9")
-        let stock8 = stock(T: "VSdd", o: "30.9")
-        let stock9 = stock(T: "VSvs", o: "44.9")
-        let stock10 = stock(T: "AAPL", o: "654.9")
+    func getStocks() -> [stockDetails]{
+        let stock1 = stockDetails(T: "TTMI", c: 30.00, h: 16.335, l: 15.96, o: 15.00, v: 394280)
+        //let stock2 = stock(T: "VSAT", o: "34.9")
+        //let stock3 = stock(T: "VSdd", o: "30.9")
+        //let stock4 = stock(T: "VSvs", o: "44.9")
+        //let stock5 = stock(T: "AAPL", o: "654.9")
+        //let stock6 = stock(T: "TANH", o: "24.5")
+        //let stock7 = stock(T: "VSAT", o: "34.9")
+        //let stock8 = stock(T: "VSdd", o: "30.9")
+        //let stock9 = stock(T: "VSvs", o: "44.9")
+        //let stock10 = stock(T: "AAPL", o: "654.9")
         
-        return [stock1,stock2,stock3,stock4,stock5,stock6,stock7,stock8,stock9,stock10]
+        return [stock1]
         
     }
 }

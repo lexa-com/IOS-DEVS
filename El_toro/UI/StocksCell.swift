@@ -9,15 +9,17 @@ import UIKit
 
 class StocksCell: UITableViewCell {
     
-    var T = UILabel()
-    var o = UILabel()
-    var stocksGrowth = UILabel()
+    var symbolName = UILabel()
+    var openPrice = UILabel()
+    var closePrice = UILabel()
+    var change = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(T)
-        addSubview(o)
-        addSubview(stocksGrowth)
+        addSubview(symbolName)
+        addSubview(openPrice)
+        addSubview(closePrice)
+        addSubview(change)
         
         configureTable()
         setConstraints()
@@ -27,42 +29,58 @@ class StocksCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(stock: stock){
-        T.text = stock.T
-        o.text = stock.o
+    
+    func set(stock: stockDetails){
+        
+        let percentageChange = (stock.o - stock.c)/(stock.o * 0.01)
+        
+        change.text = String(percentageChange)
+        symbolName.text = String(stock.T)
+        openPrice.text = String(stock.o)
+        closePrice.text = String(stock.c)
     }
     
     func configureTable() {
         
         
-        T.textColor = .black
-        T.textAlignment = .justified
+        symbolName.textColor = .black
+        symbolName.textAlignment = .justified
         
         
-        o.textColor = .systemPink
+        openPrice.textColor = .systemPink
+        closePrice.textColor = .black
         
-        
-        stocksGrowth.text = "2.2%"
-        stocksGrowth.textColor = .systemGreen
+        change.textColor = .systemGreen
         
     
             
     }
     
     func setConstraints(){
-        T.translatesAutoresizingMaskIntoConstraints = false
-        T.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        T.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20).isActive = true
-        T.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        T.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        symbolName.translatesAutoresizingMaskIntoConstraints = false
+        symbolName.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        symbolName.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20).isActive = true
+        symbolName.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        symbolName.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
-        o.translatesAutoresizingMaskIntoConstraints = false
-        o.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        o.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        o.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        //o.leadingAnchor.constraint(equalTo: T.trailingAnchor, constant: 50).isActive = true
+        openPrice.translatesAutoresizingMaskIntoConstraints = false
+        openPrice.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        openPrice.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        // openPrice.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        openPrice.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60).isActive = true
         
-        o.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+        closePrice.translatesAutoresizingMaskIntoConstraints = false
+        closePrice.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        closePrice.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        //closePrice.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        closePrice.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120).isActive = true
+        
+        change.translatesAutoresizingMaskIntoConstraints = false
+        change.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        change.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        //closePrice.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        change.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        
     }
     
 }
