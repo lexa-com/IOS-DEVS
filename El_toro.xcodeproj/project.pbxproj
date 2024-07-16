@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		6A76B4742C2A9EF500EDB685 /* StoinksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A76B4732C2A9EF500EDB685 /* StoinksVC.swift */; };
+		6A8606D42C3D13C7007D9C91 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8606D32C3D13C7007D9C91 /* APIRequest.swift */; };
+		6A8606D62C3D140A007D9C91 /* baseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8606D52C3D140A007D9C91 /* baseURL.swift */; };
 		6A8A87BA2C33E97E005C2977 /* StocksListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8A87B92C33E97E005C2977 /* StocksListVC.swift */; };
 		6A8AC41D2C36A66500BA2B52 /* StocksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8AC41C2C36A66500BA2B52 /* StocksCell.swift */; };
 		6A8AC41F2C36B9DB00BA2B52 /* stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8AC41E2C36B9DB00BA2B52 /* stock.swift */; };
+		6A8D2F002C468C6B004C130A /* StocksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D2EFF2C468C6B004C130A /* StocksViewModel.swift */; };
 		6A8F99612C21BB43002C7C3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F99602C21BB43002C7C3F /* AppDelegate.swift */; };
 		6A8F99632C21BB43002C7C3F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F99622C21BB43002C7C3F /* SceneDelegate.swift */; };
 		6A8F99652C21BB43002C7C3F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8F99642C21BB43002C7C3F /* ViewController.swift */; };
@@ -22,9 +25,12 @@
 /* Begin PBXFileReference section */
 		69FA5220B3A6E27D335ADE82 /* Pods_El_toro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_El_toro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A76B4732C2A9EF500EDB685 /* StoinksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoinksVC.swift; sourceTree = "<group>"; };
+		6A8606D32C3D13C7007D9C91 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		6A8606D52C3D140A007D9C91 /* baseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baseURL.swift; sourceTree = "<group>"; };
 		6A8A87B92C33E97E005C2977 /* StocksListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListVC.swift; sourceTree = "<group>"; };
 		6A8AC41C2C36A66500BA2B52 /* StocksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksCell.swift; sourceTree = "<group>"; };
 		6A8AC41E2C36B9DB00BA2B52 /* stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stock.swift; sourceTree = "<group>"; };
+		6A8D2EFF2C468C6B004C130A /* StocksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksViewModel.swift; sourceTree = "<group>"; };
 		6A8F995D2C21BB43002C7C3F /* El_toro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = El_toro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8F99602C21BB43002C7C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A8F99622C21BB43002C7C3F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +68,6 @@
 				8C92C7ABA9F29C038D11CC94 /* Pods-El_toro.debug.xcconfig */,
 				8F21854357531591183E9139 /* Pods-El_toro.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -88,8 +93,18 @@
 		6A8724442C351C610011FC60 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				6A8606D32C3D13C7007D9C91 /* APIRequest.swift */,
+				6A8606D52C3D140A007D9C91 /* baseURL.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		6A8D2EFE2C468C19004C130A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6A8D2EFF2C468C6B004C130A /* StocksViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		6A8F99542C21BB43002C7C3F = {
@@ -113,6 +128,7 @@
 		6A8F995F2C21BB43002C7C3F /* El_toro */ = {
 			isa = PBXGroup;
 			children = (
+				6A8D2EFE2C468C19004C130A /* ViewModel */,
 				6A8724442C351C610011FC60 /* Network */,
 				6A8724432C351C140011FC60 /* Models */,
 				6A76B4722C2A9E3700EDB685 /* UI */,
@@ -242,9 +258,12 @@
 				6A8AC41D2C36A66500BA2B52 /* StocksCell.swift in Sources */,
 				6A8A87BA2C33E97E005C2977 /* StocksListVC.swift in Sources */,
 				6A8F99652C21BB43002C7C3F /* ViewController.swift in Sources */,
+				6A8606D62C3D140A007D9C91 /* baseURL.swift in Sources */,
 				6A8F99612C21BB43002C7C3F /* AppDelegate.swift in Sources */,
+				6A8D2F002C468C6B004C130A /* StocksViewModel.swift in Sources */,
 				6A76B4742C2A9EF500EDB685 /* StoinksVC.swift in Sources */,
 				6A8F99632C21BB43002C7C3F /* SceneDelegate.swift in Sources */,
+				6A8606D42C3D13C7007D9C91 /* APIRequest.swift in Sources */,
 				6A8AC41F2C36B9DB00BA2B52 /* stock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,7 +319,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -363,7 +382,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

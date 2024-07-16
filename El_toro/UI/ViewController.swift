@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 
 class ViewController: UIViewController,StoinksSelectionDelegate {
@@ -16,7 +17,9 @@ class ViewController: UIViewController,StoinksSelectionDelegate {
     let selectButton = UIButton()
     let pageLabel = UILabel()
     let tableView = UITableView()
-    var stocks:[stockDetails] = []
+    let disposeBag = DisposeBag()
+    let viewModel = StocksViewModel()
+    var stocks:[stockModel] = []
    
 
     override func viewDidLoad() {
@@ -24,12 +27,31 @@ class ViewController: UIViewController,StoinksSelectionDelegate {
         view.backgroundColor = .systemBackground
         setUpUi ()
         setTable()
-        stocks = getStocks()
-       
+        viewModel.fetchStock()
+        dataBinding()
        
     }
     func selectedStoinks(label: String) {
         pageLabel.text = label    }
+    
+    func dataBinding(){
+        viewModel.stocks
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {[weak self] stocks in
+                self?.stocks = stocks
+                self?.tableView.reloadData()})
+            .disposed(by: disposeBag)
+        
+        viewModel.error
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {error in
+                print("eRROR: \(error)")
+            })
+            .disposed(by: disposeBag)
+        
+        print("\(stocks) stoinks")
+        
+    }
 
     
     @objc func openStoinks(){
@@ -114,11 +136,13 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "stocksCell") as! StocksCell
-        let stock = stocks[indexPath.row]
+       let cell = tableView.dequeueReusableCell(withIdentifier: "stocksCell") as! StocksCell
+        let stock = (stocks[indexPath.row].results?[indexPath.row])!
         cell.set(stock: stock)
         
-        return cell
+        print("\(stock) malenge")
+        
+     return cell
     }
     
     
@@ -126,22 +150,5 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
 
 // test data
 
-extension ViewController {
-    func getStocks() -> [stockDetails]{
-        let stock1 = stockDetails(T: "TTMI", c: 30.00, h: 16.335, l: 15.96, o: 15.00, v: 394280)
-        //let stock2 = stock(T: "VSAT", o: "34.9")
-        //let stock3 = stock(T: "VSdd", o: "30.9")
-        //let stock4 = stock(T: "VSvs", o: "44.9")
-        //let stock5 = stock(T: "AAPL", o: "654.9")
-        //let stock6 = stock(T: "TANH", o: "24.5")
-        //let stock7 = stock(T: "VSAT", o: "34.9")
-        //let stock8 = stock(T: "VSdd", o: "30.9")
-        //let stock9 = stock(T: "VSvs", o: "44.9")
-        //let stock10 = stock(T: "AAPL", o: "654.9")
-        
-        return [stock1]
-        
-    }
-}
 
 

@@ -7,13 +7,13 @@
 
 import UIKit
 
-struct stock: Codable {
+struct stockModel: Codable {
     
-    var queryCount: Float
-    var resultsCount : Float
-    var adjusted : Bool
-    var results :[stockDetails]
-    var status : String
+    var queryCount: Float?
+    var resultsCount : Float?
+    var adjusted : Bool?
+    var results :[stockDetails]?
+    var status : String?
 }
 
 struct stockDetails: Codable{
