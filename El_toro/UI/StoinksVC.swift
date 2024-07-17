@@ -8,7 +8,7 @@
 import UIKit
 
 protocol StoinksSelectionDelegate{
-    func selectedStoinks(label:String)
+    func selectedStoinks(label:String,method:String)
     
 }
 
@@ -29,17 +29,17 @@ class StoinksVC: UIViewController {
     }
     
     @objc func onTopGains(){
-        delegate?.selectedStoinks(label: "TOP STOINKS")
+        delegate?.selectedStoinks(label: "TOP STOINKS",method: "top")
         dismiss(animated: true)
         
     }
     @objc func onAllStocksClicked(){
-        delegate?.selectedStoinks(label: "ALL STOINKS")
+        delegate?.selectedStoinks(label: "ALL STOINKS", method: "all")
         dismiss(animated: true)
         
     }
     @objc func onBottonStocksClicked(){
-        delegate?.selectedStoinks(label: "BOTTOM STOINKS")
+        delegate?.selectedStoinks(label: "BOTTOM STOINKS", method: "bottom")
         dismiss(animated: true)
         
     }

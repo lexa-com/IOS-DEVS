@@ -12,7 +12,7 @@ struct stockModel: Codable {
     var queryCount: Float?
     var resultsCount : Float?
     var adjusted : Bool?
-    var results :[stockDetails]?
+    var results :[stockDetails]
     var status : String?
 }
 

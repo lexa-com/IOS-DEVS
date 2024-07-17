@@ -19,8 +19,8 @@ class ViewController: UIViewController,StoinksSelectionDelegate {
     let tableView = UITableView()
     let disposeBag = DisposeBag()
     let viewModel = StocksViewModel()
-    var stocks:[stockModel] = []
-   
+    var stocks:[stockDetails] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,31 +28,29 @@ class ViewController: UIViewController,StoinksSelectionDelegate {
         setUpUi ()
         setTable()
         viewModel.fetchStock()
-        dataBinding()
+        //dataBinding()
        
     }
-    func selectedStoinks(label: String) {
-        pageLabel.text = label    }
+    func selectedStoinks(label: String,method:String) {
+        pageLabel.text = label
+        if (method == "all"){
+            dataBinding()
+        } else{
+            
+        }
+    }
     
-    func dataBinding(){
-        viewModel.stocks
+    func dataBinding() {
+        APIRequest.apiCalls.fetchData()
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {[weak self] stocks in
-                self?.stocks = stocks
-                self?.tableView.reloadData()})
-            .disposed(by: disposeBag)
-        
-        viewModel.error
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: {error in
-                print("eRROR: \(error)")
+                self?.stocks = stocks.results
+                self?.tableView.reloadData()
+            }, onError: {error in
+                print("Error fetching data: \(error)")
             })
             .disposed(by: disposeBag)
-        
-        print("\(stocks) stoinks")
-        
     }
-
     
     @objc func openStoinks(){
         let destinationVC = StoinksVC()
@@ -137,10 +135,8 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier: "stocksCell") as! StocksCell
-        let stock = (stocks[indexPath.row].results?[indexPath.row])!
+        let stock = (stocks[indexPath.row])
         cell.set(stock: stock)
-        
-        print("\(stock) malenge")
         
      return cell
     }
@@ -148,7 +144,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
     
 }
 
-// test data
+
 
 
 

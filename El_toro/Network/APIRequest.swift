@@ -14,8 +14,9 @@ class APIRequest{
    static let apiCalls = APIRequest()
     
     func fetchData() ->Observable<stockModel>{
-        let url = URL(string: "\(baseUrlInstance.baseURL)\(baseUrlInstance.apiKey)")!
-        
+        let date = baseUrlInstance.dateFormatter()
+        let url = URL(string: "\(baseUrlInstance.baseURL)\(date)?apiKey=\(baseUrlInstance.apiKey)")!
+                
         return Observable.create{observer in
             let task = URLSession.shared.dataTask(with: url){
                 data,response,error in

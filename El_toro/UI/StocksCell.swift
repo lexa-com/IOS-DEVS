@@ -34,7 +34,7 @@ class StocksCell: UITableViewCell {
         
         let percentageChange = (stock.o - stock.c)/(stock.o * 0.01)
         
-        change.text = String(percentageChange)
+        change.text = String(format: "%.2f",percentageChange)
         symbolName.text = String(stock.T)
         openPrice.text = String(stock.o)
         closePrice.text = String(stock.c)
