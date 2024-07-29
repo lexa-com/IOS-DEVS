@@ -18,7 +18,7 @@ class baseURL{
         
         let date = Date()
         
-        let dateToday = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? date
+        let dateToday = Calendar.current.date(byAdding: .day, value: -3, to: date) ?? date
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

@@ -15,10 +15,12 @@ class StocksViewModel {
     let error: PublishSubject<Error> = PublishSubject()
     
     func fetchStock(){
+        print("called")
         APIRequest.apiCalls.fetchData()
             .subscribe(
                 onNext: {[weak self] stocks in
                     self?.stocks.onNext([stocks])
+                    print("\([stocks]) malenge")
                 },
                 onError: {[weak self] error in
                     self?.error.onNext(error)
