@@ -9,8 +9,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol StocksSelectionDelegate{
+    func selectedStoinks(label:String,data:[stockDetails])
+    
+}
 
-class ViewController: UIViewController{
+class ViewController: UIViewController, StocksSelectionDelegate{
+    func selectedStoinks(label: String, data: [stockDetails]) {
+        
+    }
+    
  
     
     
@@ -22,30 +30,50 @@ class ViewController: UIViewController{
     let topGainersBtn = UIButton()
     let allStocksBtn = UIButton()
     let bottomStocksBtn = UIButton()
+    let expensiveStocksBtn = UIButton()
     
-
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setUpUi ()
         setUpButtons()
-        viewModel.fetchStock()
-               
-        
-       
+                           
     }
    
     
-    func dataBinding() {
-        APIRequest.apiCalls.fetchData()
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: {[weak self] stocks in
-                self?.stocks = stocks.results
-            }, onError: {error in
-                print("Error fetching data: \(error)")
-            })
-            .disposed(by: disposeBag)
+    @objc func onAllStocksClicked(){
+        
+        let vc = DisplayTablesVC()
+        vc.pageTitle = "TOP LOSSERS"
+        vc.category = "loss"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    @objc func cheapStocksClicked(){
+        
+        let vc = DisplayTablesVC()
+        vc.pageTitle = "CHEAP STOCK OPTIONS"
+        vc.category = "cheap"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    @objc func expensiveStocksClicked(){
+        
+        let vc = DisplayTablesVC()
+        vc.pageTitle = "EXPENSIVE STOCK OPTIONS"
+        vc.category = "expensive"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    @objc func moverStocksClicked(){
+        
+        let vc = DisplayTablesVC()
+        vc.pageTitle = "TOP MOVERS"
+        vc.category = "movers"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 
@@ -83,30 +111,36 @@ class ViewController: UIViewController{
         
     }
     
+  
+    
     func setUpButtons(){
         view.addSubview(topGainersBtn)
         view.addSubview(allStocksBtn)
         view.addSubview(bottomStocksBtn)
+        view.addSubview(expensiveStocksBtn)
         
         topGainersBtn.translatesAutoresizingMaskIntoConstraints = false
         allStocksBtn.translatesAutoresizingMaskIntoConstraints = false
         bottomStocksBtn.translatesAutoresizingMaskIntoConstraints = false
+    expensiveStocksBtn.translatesAutoresizingMaskIntoConstraints = false
+        
         
         topGainersBtn.configuration = .tinted()
         topGainersBtn.configuration?.title = "TOP MOVERS"
-        topGainersBtn.configuration?.image = UIImage(systemName: "arrowshape.up.circle")
+        topGainersBtn.configuration?.image = UIImage(systemName: "arrowtriangle.up.fill")
         topGainersBtn.configuration?.imagePadding = 6
-        topGainersBtn.configuration?.baseForegroundColor = .systemBlue
-        topGainersBtn.configuration?.baseBackgroundColor = .systemBlue
-        //topGainersBtn.addTarget(self, action: #selector(onTopGains), for: arrowshape.up.circle.touchUpInside)
+        topGainersBtn.configuration?.baseForegroundColor = .systemTeal
+        topGainersBtn.configuration?.baseBackgroundColor = .systemTeal
+        topGainersBtn.addTarget(self, action: #selector(moverStocksClicked), for: .touchUpInside)
+        
         
         bottomStocksBtn.configuration = .tinted()
-        bottomStocksBtn.configuration?.title = "TOP GAINERS"
-        bottomStocksBtn.configuration?.image = UIImage(systemName: "arrowtriangle.up.fill")
+        bottomStocksBtn.configuration?.title = "CHEAP STOCKS"
+        bottomStocksBtn.configuration?.image = UIImage(systemName: "square.fill")
         bottomStocksBtn.configuration?.imagePadding = 6
-        bottomStocksBtn.configuration?.baseForegroundColor = .systemGreen
-        bottomStocksBtn.configuration?.baseBackgroundColor = .systemTeal
-        //bottomStocksBtn.addTarget(self, action: #selector(onBottonStocksClicked), for: .touchUpInside)
+        bottomStocksBtn.configuration?.baseForegroundColor = .systemGray
+        bottomStocksBtn.configuration?.baseBackgroundColor = .systemGray
+        bottomStocksBtn.addTarget(self, action: #selector(cheapStocksClicked), for: .touchUpInside)
         
         allStocksBtn.configuration = .tinted()
         allStocksBtn.configuration?.title = "TOP LOSSERS"
@@ -114,7 +148,15 @@ class ViewController: UIViewController{
         allStocksBtn.configuration?.imagePadding = 6
         allStocksBtn.configuration?.baseForegroundColor = .systemPink
         allStocksBtn.configuration?.baseBackgroundColor = .systemPink
-        //allStocksBtn.addTarget(self, action: #selector(onAllStocksClicked), for: .touchUpInside)
+        allStocksBtn.addTarget(self, action: #selector(onAllStocksClicked), for: .touchUpInside)
+        
+        expensiveStocksBtn.configuration = .tinted()
+        expensiveStocksBtn.configuration?.title = "PRICEY STOCKS"
+        expensiveStocksBtn.configuration?.image = UIImage(systemName: "dollarsign.square.fill")
+        expensiveStocksBtn.configuration?.imagePadding = 6
+        expensiveStocksBtn.configuration?.baseForegroundColor = .systemBrown
+        expensiveStocksBtn.configuration?.baseBackgroundColor = .systemBrown
+        expensiveStocksBtn.addTarget(self, action: #selector(expensiveStocksClicked), for: .touchUpInside)
         
         //add constraints of each
         
@@ -135,6 +177,11 @@ class ViewController: UIViewController{
             bottomStocksBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bottomStocksBtn.heightAnchor.constraint(equalToConstant: 30),
             bottomStocksBtn.widthAnchor.constraint(equalToConstant: 200),
+            
+            expensiveStocksBtn.topAnchor.constraint(equalTo: bottomStocksBtn.bottomAnchor, constant: 20),
+            expensiveStocksBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            expensiveStocksBtn.heightAnchor.constraint(equalToConstant: 30),
+            expensiveStocksBtn.widthAnchor.constraint(equalToConstant: 200),
         
         ])
         
@@ -143,6 +190,7 @@ class ViewController: UIViewController{
 
    
 }
+
 
 
 

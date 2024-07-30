@@ -32,24 +32,22 @@ class StocksCell: UITableViewCell {
     
     func set(stock: stockDetails){
         
-        let percentageChange = (stock.o - stock.c)/(stock.o * 0.01)
+        let percentageChange = (stock.o - stock.c)
         
         change.text = String(format: "%.2f",percentageChange)
         symbolName.text = String(stock.T)
-        openPrice.text = String(stock.o)
-        closePrice.text = String(stock.c)
+        openPrice.text = String(format: "%.2f",stock.o)
+        closePrice.text = String(format: "%.2f",stock.c)
     }
     
     func configureTable() {
         
         
-        symbolName.textColor = .black
         symbolName.textAlignment = .justified
         
         
         openPrice.textColor = .systemPink
-        closePrice.textColor = .black
-        
+                
         change.textColor = .systemGreen
         
     
@@ -67,7 +65,7 @@ class StocksCell: UITableViewCell {
         openPrice.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         openPrice.heightAnchor.constraint(equalToConstant: 60).isActive = true
         // openPrice.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        openPrice.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60).isActive = true
+        openPrice.trailingAnchor.constraint(equalTo: closePrice.leadingAnchor, constant: -10).isActive = true
         
         closePrice.translatesAutoresizingMaskIntoConstraints = false
         closePrice.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
