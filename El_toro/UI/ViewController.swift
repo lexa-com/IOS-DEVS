@@ -31,14 +31,16 @@ class ViewController: UIViewController, StocksSelectionDelegate{
     let allStocksBtn = UIButton()
     let bottomStocksBtn = UIButton()
     let expensiveStocksBtn = UIButton()
-    
-    
+    let baseUrlInstance = baseURL() 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setUpUi ()
         setUpButtons()
+        
+       
+        
                            
     }
    

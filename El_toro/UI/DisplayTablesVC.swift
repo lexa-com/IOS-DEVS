@@ -41,6 +41,7 @@ class DisplayTablesVC: UIViewController{
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {[weak self] stocks in
                 
+                print(stocks.results)
                                 
                 let volumeStocks = stocks.results.sorted(by: { $0.v > $1.v})
                 let expesiveStocks = stocks.results.sorted(by: { $0.c > $1.c})
