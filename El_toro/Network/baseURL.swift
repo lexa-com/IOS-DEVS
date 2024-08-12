@@ -13,17 +13,27 @@ class baseURL{
     
     let todayDate = Date()
     
+    
         
     func dateFormatter()->String{
         
+        
         let date = Date()
-        
-        let dateToday = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? date
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        let day = Calendar.current.component(.weekday, from: date)
+        var dateToday = Calendar.current.date(byAdding: .day, value:-3, to: date) ?? date
+        
+        if day == 7{
+            let dateToday = Calendar.current.date(byAdding: .day, value: -2, to: date) ?? date
+            _ = dateFormatter.string(from:dateToday)
+        }else if day == 2{
+            let dateToday = Calendar.current.date(byAdding: .day, value: -3, to: date) ?? date
+            _ = dateFormatter.string(from:dateToday)
+        }
         let apiDate = dateFormatter.string(from:dateToday)
         return apiDate
     }
+    
     
 }

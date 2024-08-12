@@ -15,10 +15,12 @@ class StocksViewModel {
     let error: PublishSubject<Error> = PublishSubject()
     
     func fetchStock(){
+
         APIRequest.apiCalls.fetchData()
             .subscribe(
                 onNext: {[weak self] stocks in
                     self?.stocks.onNext([stocks])
+                    
                 },
                 onError: {[weak self] error in
                     self?.error.onNext(error)
