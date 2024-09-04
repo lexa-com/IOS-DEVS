@@ -9,6 +9,7 @@ import Foundation
 
 class baseURL{
     var baseURL = "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/"
+    var tickersURL = "https://api.polygon.io/v3/reference/tickers/"
     let apiKey  = "lay6xs6VrvXrFPmQVEm7O2i6EpaoVaH9"
     
     let todayDate = Date()
@@ -21,16 +22,17 @@ class baseURL{
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let day = Calendar.current.component(.weekday, from: date)
-        var dateToday = Calendar.current.date(byAdding: .day, value:-3, to: date) ?? date
-        
-        if day == 7{
-            let dateToday = Calendar.current.date(byAdding: .day, value: -2, to: date) ?? date
-            _ = dateFormatter.string(from:dateToday)
-        }else if day == 2{
-            let dateToday = Calendar.current.date(byAdding: .day, value: -3, to: date) ?? date
-            _ = dateFormatter.string(from:dateToday)
+        let removedDays:Int
+    
+        switch Calendar.current.component(.weekday, from: date){
+        case 7:
+            removedDays = 2
+        case 2:
+            removedDays = 3
+        default:
+            removedDays = 1
         }
+        let dateToday = Calendar.current.date(byAdding: .day, value: -removedDays, to: date) ?? date
         let apiDate = dateFormatter.string(from:dateToday)
         return apiDate
     }

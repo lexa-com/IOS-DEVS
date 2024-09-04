@@ -12,8 +12,6 @@ import RxCocoa
 class DisplayTablesVC: UIViewController{
     
     
-    
-    
     let pageLabel = UILabel()
     var pageTitle: String!
     var category: String!
@@ -41,7 +39,7 @@ class DisplayTablesVC: UIViewController{
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {[weak self] stocks in
                 
-                print(stocks.results)
+               // print("\(stocks) data binding")
                                 
                 let volumeStocks = stocks.results.sorted(by: { $0.v > $1.v})
                 let expesiveStocks = stocks.results.sorted(by: { $0.c > $1.c})
@@ -76,10 +74,13 @@ class DisplayTablesVC: UIViewController{
                 print("Error fetching data: \(error)")
             })
             .disposed(by: disposeBag)
+        
+        //print("\(stocks) malengeess")
     }
     
     
     func setLabel (){
+        
         view.addSubview(pageLabel)
         pageLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -131,7 +132,7 @@ class DisplayTablesVC: UIViewController{
 }
 extension DisplayTablesVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(stocks.count)
+        //print(stocks.count)
         return stocks.count
     }
     
@@ -142,6 +143,9 @@ extension DisplayTablesVC: UITableViewDelegate,UITableViewDataSource{
         
      return cell
     }
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewControl = StockDetailsViewController()
+        viewControl.stockName = stocks[indexPath.row]
+        self.navigationController?.pushViewController(viewControl, animated: true)
+    }
 }

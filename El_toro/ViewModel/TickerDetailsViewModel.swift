@@ -1,26 +1,26 @@
 //
-//  StocksViewModel.swift
+//  TickerDetailsViewModel.swift
 //  El_toro
 //
-//  Created by IOSdev on 16/07/2024.
+//  Created by IOSdev on 21/08/2024.
 //
 
 import Foundation
 import RxSwift
 import RxCocoa
 
-class StocksViewModel {
+class TickerDetailsViewModel {
     let disposeBag = DisposeBag()
-    let stocks: PublishSubject<[stockModel]> = PublishSubject()
+    let stocks: PublishSubject<[tickerModel]> = PublishSubject()
     let error: PublishSubject<Error> = PublishSubject()
     
-    func fetchStock(){
+    func fetchStock(ticker:String){
 
-        APIRequest.apiCalls.fetchData()
+        APIRequest.apiCalls.getStockDetails(ticker: ticker)
             .subscribe(
                 onNext: {[weak self] stocks in
                     self?.stocks.onNext([stocks])
-                    print(stocks)
+                   // print(stocks.results)
                     
                 },
                 onError: {[weak self] error in

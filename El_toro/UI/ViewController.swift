@@ -25,7 +25,7 @@ class ViewController: UIViewController, StocksSelectionDelegate{
     let pageLabel = UILabel()
     let disposeBag = DisposeBag()
     let viewModel = StocksViewModel()
-    var stocks:[stockDetails] = []
+    var stocksy:[stockDetails] = []
     let logoImageView = UIImageView()
     let topGainersBtn = UIButton()
     let allStocksBtn = UIButton()

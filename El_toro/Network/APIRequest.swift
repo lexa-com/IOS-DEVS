@@ -41,5 +41,36 @@ class APIRequest{
         }
     }
     
+    func getStockDetails(ticker:String)-> Observable<tickerModel>{
+        
+     //   let date = baseUrlInstance.dateFormatter()
+        let url = URL(string: "\(baseUrlInstance.tickersURL)\(ticker)?apiKey=\(baseUrlInstance.apiKey)")!
+        
+       // print(url)
+        
+        return Observable.create{observer in
+            let task = URLSession.shared.dataTask(with: url){
+                data,response,error in
+                if let error = error{
+                    observer.onError(error)
+                }
+                
+                if let data = data{
+                    do{
+                        let stockMoreDetails = try JSONDecoder().decode(tickerModel.self, from: data)
+                        observer.onNext(stockMoreDetails)
+                        //print("\(stockMoreDetails.results) results mm")
+                        observer.onCompleted()
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+            }
+            task.resume()
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
 
 }
